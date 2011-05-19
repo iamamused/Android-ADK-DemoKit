@@ -33,6 +33,10 @@ public class InputController extends AccessoryController {
 		}
 	}
 
+	protected void onAccesssoryDetached() {
+	
+	}
+	
 	public void setTemperature(int temperatureFromArduino) {
 		/*
 		 * Arduino board contains a 6 channel (8 channels on the Mini and Nano,

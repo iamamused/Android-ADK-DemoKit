@@ -6,7 +6,8 @@ import android.view.MenuItem;
 
 public class BaseActivity extends DemoKitActivity {
 
-	private InputController mInputController;
+    private InputController mInputController;
+    protected TiltController mTiltController;
 
 	public BaseActivity() {
 		super();
@@ -50,14 +51,19 @@ public class BaseActivity extends DemoKitActivity {
 
 	protected void hideControls() {
 		setContentView(R.layout.no_device);
+        if (mInputController != null) {
+            mInputController.accessoryDetached();
+        }
 		mInputController = null;
 	}
 
 	protected void showControls() {
 		setContentView(R.layout.main);
 
-		mInputController = new InputController(this);
-		mInputController.accessoryAttached();
+        mInputController = new InputController(this);
+        mInputController.accessoryAttached();
+        mTiltController = new TiltController(this);
+
 	}
 
 	protected void handleJoyMessage(JoyMsg j) {

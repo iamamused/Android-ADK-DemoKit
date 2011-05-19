@@ -3,6 +3,7 @@
 	<string name="app_name">DemoKit</string>
 	<string name="input">In</string>
 	<string name="output">Out</string>
+	<string name="tilt">Tilt</string>
 	<string name="no_device">Please connect a DemoKit board.</string>
 	<string name="servo1Label">Servo<sub>1</sub></string>
 	<string name="ledLabel">LED<sub>1</sub></string>

@@ -11,9 +11,11 @@ public class DemoKitPhone extends BaseActivity implements OnClickListener {
 	static final String TAG = "DemoKitPhone";
 	/** Called when the activity is first created. */
 	TextView mInputLabel;
-	TextView mOutputLabel;
+    TextView mOutputLabel;
+    TextView mTiltLabel;
 	LinearLayout mInputContainer;
-	LinearLayout mOutputContainer;
+    LinearLayout mOutputContainer;
+    LinearLayout mTiltContainer;
 	Drawable mFocusedTabImage;
 	Drawable mNormalTabImage;
 	OutputController mOutputController;
@@ -37,41 +39,50 @@ public class DemoKitPhone extends BaseActivity implements OnClickListener {
 
 		mOutputController = new OutputController(this, false);
 		mOutputController.accessoryAttached();
+		
 		mInputLabel = (TextView) findViewById(R.id.inputLabel);
-		mOutputLabel = (TextView) findViewById(R.id.outputLabel);
+        mOutputLabel = (TextView) findViewById(R.id.outputLabel);
+        mTiltLabel = (TextView) findViewById(R.id.tiltLabel);
 		mInputContainer = (LinearLayout) findViewById(R.id.inputContainer);
-		mOutputContainer = (LinearLayout) findViewById(R.id.outputContainer);
+        mOutputContainer = (LinearLayout) findViewById(R.id.outputContainer);
+        mTiltContainer = (LinearLayout) findViewById(R.id.tiltContainer);
 		mInputLabel.setOnClickListener(this);
-		mOutputLabel.setOnClickListener(this);
+        mOutputLabel.setOnClickListener(this);
+        mTiltLabel.setOnClickListener(this);
 
-		showTabContents(true);
+		showTabContents(R.id.inputLabel);
 	}
 
-	void showTabContents(Boolean showInput) {
-		if (showInput) {
+	void showTabContents(int id) {
+		if (id == R.id.inputLabel) {
 			mInputContainer.setVisibility(View.VISIBLE);
 			mInputLabel.setBackgroundDrawable(mFocusedTabImage);
-			mOutputContainer.setVisibility(View.GONE);
-			mOutputLabel.setBackgroundDrawable(mNormalTabImage);
-		} else {
-			mInputContainer.setVisibility(View.GONE);
-			mInputLabel.setBackgroundDrawable(mNormalTabImage);
-			mOutputContainer.setVisibility(View.VISIBLE);
-			mOutputLabel.setBackgroundDrawable(mFocusedTabImage);
-		}
+            mOutputContainer.setVisibility(View.GONE);
+            mOutputLabel.setBackgroundDrawable(mNormalTabImage);
+            mTiltContainer.setVisibility(View.GONE);
+            mTiltLabel.setBackgroundDrawable(mNormalTabImage);
+            mTiltController.accessoryDetached();
+		} else if (id == R.id.outputLabel) {
+            mInputContainer.setVisibility(View.GONE);
+            mInputLabel.setBackgroundDrawable(mNormalTabImage);
+            mOutputContainer.setVisibility(View.VISIBLE);
+            mOutputLabel.setBackgroundDrawable(mFocusedTabImage);
+            mTiltContainer.setVisibility(View.GONE);
+            mTiltLabel.setBackgroundDrawable(mNormalTabImage);
+            mTiltController.accessoryDetached();
+        } else if (id == R.id.tiltLabel) {
+            mInputContainer.setVisibility(View.GONE);
+            mInputLabel.setBackgroundDrawable(mNormalTabImage);
+            mOutputContainer.setVisibility(View.GONE);
+            mOutputLabel.setBackgroundDrawable(mNormalTabImage);
+            mTiltContainer.setVisibility(View.VISIBLE);
+            mTiltLabel.setBackgroundDrawable(mFocusedTabImage);
+            mTiltController.accessoryAttached();
+        }
 	}
 
 	public void onClick(View v) {
-		int vId = v.getId();
-		switch (vId) {
-		case R.id.inputLabel:
-			showTabContents(true);
-			break;
-
-		case R.id.outputLabel:
-			showTabContents(false);
-			break;
-		}
+	    showTabContents(v.getId());
 	}
 
 }

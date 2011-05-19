@@ -23,6 +23,11 @@ public class OutputController extends AccessoryController {
 		setupRelayController(1, R.id.relay1);
 		setupRelayController(2, R.id.relay2);
 	}
+	
+	protected void onAccesssoryDetached() {
+	       
+	}
+
 
 	private void setupServoController(int servoIndex, int viewId) {
 		ServoController sc = new ServoController(mHostActivity, servoIndex);

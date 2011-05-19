@@ -19,10 +19,15 @@ public abstract class AccessoryController {
 		return mHostActivity.getResources();
 	}
 
-	void accessoryAttached() {
-		onAccesssoryAttached();
-	}
+    void accessoryAttached() {
+        onAccesssoryAttached();
+    }
 
-	abstract protected void onAccesssoryAttached();
+    void accessoryDetached() {
+        onAccesssoryDetached();
+    }
+
+    abstract protected void onAccesssoryAttached();
+    abstract protected void onAccesssoryDetached();
 
 }
